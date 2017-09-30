@@ -36,17 +36,13 @@ def menu():
     print("""What do you wish to do now? \n1. Get the latest issue.
           \n2. Get the titles of the latest 5 issues.""")
     opt = input('opt: ')
-    if opt is None or opt not in ["1", "2"]:
+    if opt == "1":
+        get_rss(int(opt))
+    elif opt == "2":
+        get_rss(int(opt))
+    else:
         print("Not a valid choice")
         exit(0)
-    else:
-        if opt == "1":
-            get_rss(int(opt))
-        elif opt == "2":
-            get_rss(int(opt))
-        else:
-            print("Not a valid choice")
-            exit(0)
 
 
 if __name__ == "__main__":
