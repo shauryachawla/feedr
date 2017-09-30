@@ -37,9 +37,9 @@ def menu():
           \n2. Get the titles of the latest 5 issues.""")
     opt = input('opt: ')
     if opt == "1":
-        get_rss(int(opt))
+        get_rss(1)
     elif opt == "2":
-        get_rss(int(opt))
+        get_rss(5)
     else:
         print("Not a valid choice")
         exit(0)
