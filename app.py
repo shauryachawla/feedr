@@ -4,11 +4,14 @@ import feedparser
 from colorama import init
 from colorama import Back, Style
 
+
 init(autoreset=True)
+
 
 def rss_print(title, link):
     print(Back.RED + "Title:" + Style.RESET_ALL + " " + title)
     print(Back.YELLOW + "Link :" + Style.RESET_ALL + " " + link)
+
 
 def get_rss(limit):
     """
@@ -16,7 +19,7 @@ def get_rss(limit):
     print single entry to show latest news, else give index number
     """
     rss_data = feedparser.parse(URL)
-    if limit ==1:
+    if limit == 1:
         title = rss_data.entries[0].title
         link = rss_data.entries[0].link
         rss_print(title, link)
@@ -28,25 +31,27 @@ def get_rss(limit):
             print(Back.CYAN + str(i + 1) + "\t")
             rss_print(title, link)
 
+
 def menu():
     print("""What do you wish to do now? \n1. Get the latest issue.
           \n2. Get the titles of the latest 5 issues.""")
-    try:
-        opt = int(raw_input('opt: '))
-    except:
-        opt = int(input('opt: '))
-
-    if opt == 1:
-        get_rss(1)
-    elif opt == 2:
-        get_rss(5)
-    else:
+    opt = input('opt: ')
+    if opt is None or opt not in ["1", "2"]:
         print("Not a valid choice")
         exit(0)
+    else:
+        if opt == "1":
+            get_rss(int(opt))
+        elif opt == "2":
+            get_rss(int(opt))
+        else:
+            print("Not a valid choice")
+            exit(0)
+
 
 if __name__ == "__main__":
-    URL = sys.argv[1]
-    if URL is None:
+    if len(sys.argv) < 2:
         print("Please specify some rss link")
     else:
+        URL = sys.argv[1]
         menu()
