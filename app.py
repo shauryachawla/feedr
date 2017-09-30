@@ -22,6 +22,11 @@ def latest_five():
     d = feedparser.parse(url)
     i = 0
     for i in range(0, 5):
+        # Prevent IndexError if less than five aricles in feed
+        try:
+            d.entries[i]
+        except IndexError:
+            break
         print (Back.CYAN + "\t" + str(i + 1) + "\t")
         print (Back.RED + "Title:") + \
             (Style.RESET_ALL + " " + d.entries[i].title)
