@@ -12,7 +12,7 @@ def rss_print(title, link):
     print(Back.RED + "Title:" + Style.RESET_ALL + " " + title)
     print(Back.YELLOW + "Link :" + Style.RESET_ALL + " " + link)
 
-    
+
 def get_rss(limit):
     """
     Get rss data from url,
