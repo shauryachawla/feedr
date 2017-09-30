@@ -7,5 +7,5 @@ RSS-feed reader
 ## contributing
 1. Fork the repository.
 2. Make corrections.
-3. Edit contributors.txt
+3. Edit AUTHORS.md
 4. Send pull request.
