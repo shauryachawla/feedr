@@ -3,6 +3,7 @@ import feedparser
 
 from colorama import init
 from colorama import Back, Style, Fore
+from bs4 import BeautifulSoup
 
 
 init(autoreset=True)
@@ -13,9 +14,10 @@ def rss_print(title, link, date, description, option):
     print(Back.YELLOW + "Date :" + Style.RESET_ALL + " " + date)
     print(Back.YELLOW + "Link :" + Style.RESET_ALL + " " + link)
     if option == 1:
-        print(Back.YELLOW + "Description :" + Style.RESET_ALL +
-              " " + description)
-
+        soup = BeautifulSoup(description, 'lxml')
+        soup = BeautifulSoup(str(soup).replace('<br/>', '\n'), 'lxml')
+        description = soup.get_text()
+        print(Back.YELLOW + "Description :" + Style.RESET_ALL + " " + description)
 
 def get_rss(limit, option):
     """
@@ -25,12 +27,10 @@ def get_rss(limit, option):
     rss_data = feedparser.parse(URL)
     try:
         for i in range(0, limit):
-            entry = rss_data.entries[i]
-
-            title = entry.title
-            link = entry.link
-            date = getattr(entry, "published", None) or ""
-            description = getattr(entry, "description", None) or ""
+            title = rss_data.entries[i].title
+            link = rss_data.entries[i].link
+            date = rss_data.entries[i].published if 'published' in rss_data.entries[i] else ""
+            description = rss_data.entries[i].description if 'description' in rss_data.entries[i] else ""
             print(Back.CYAN + str(i + 1) + "\t")
             rss_print(title, link, date, description, option)
     except:
