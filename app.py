@@ -19,26 +19,21 @@ def get_rss(limit):
     print single entry to show latest news, else give index number
     """
     rss_data = feedparser.parse(URL)
-    if limit == 1:
-        title = rss_data.entries[0].title
-        link = rss_data.entries[0].link
-        rss_print(title, link)
-    else:
-        for i in range(0, limit):
-            title = rss_data.entries[i].title
-            link = rss_data.entries[i].link
+    for i in range(0, limit):
+        title = rss_data.entries[i].title
+        link = rss_data.entries[i].link
 
-            print(Back.CYAN + str(i + 1) + "\t")
-            rss_print(title, link)
+        print(Back.CYAN + str(i + 1) + "\t")
+        rss_print(title, link)
 
 
 def menu():
     print("""What do you wish to do now? \n1. Get the latest issue.
           \n2. Get the titles of the latest 5 issues.""")
-    opt = input('opt: ')
-    if opt == "1":
+    opt = int(raw_input('Option: '))
+    if opt == 1:
         get_rss(1)
-    elif opt == "2":
+    elif opt == 2:
         get_rss(5)
     else:
         print("Not a valid choice")
