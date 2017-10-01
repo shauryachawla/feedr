@@ -13,7 +13,8 @@ def rss_print(title, link, date, description, option):
     print(Back.YELLOW + "Date :" + Style.RESET_ALL + " " + date)
     print(Back.YELLOW + "Link :" + Style.RESET_ALL + " " + link)
     if option == 1:
-        print(Back.YELLOW + "Description :" + Style.RESET_ALL + " " + description)
+        print(Back.YELLOW + "Description :" + Style.RESET_ALL +
+              " " + description)
 
 
 def get_rss(limit, option):
@@ -24,10 +25,12 @@ def get_rss(limit, option):
     rss_data = feedparser.parse(URL)
     try:
         for i in range(0, limit):
-            title = rss_data.entries[i].title
-            link = rss_data.entries[i].link
-            date = rss_data.entries[i].published if 'published' in rss_data.entries[i] else ""
-            description = rss_data.entries[i].description if 'description' in rss_data.entries[i] else ""
+            entry = rss_data.entries[i]
+
+            title = entry.title
+            link = entry.link
+            date = getattr(entry, "published", None) or ""
+            description = getattr(entry, "description", None) or ""
             print(Back.CYAN + str(i + 1) + "\t")
             rss_print(title, link, date, description, option)
     except:
