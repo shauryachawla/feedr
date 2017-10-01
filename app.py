@@ -2,7 +2,7 @@ import sys
 import feedparser
 
 from colorama import init
-from colorama import Back, Style
+from colorama import Back, Style, Fore
 
 
 init(autoreset=True)
@@ -19,12 +19,15 @@ def get_rss(limit):
     print single entry to show latest news, else give index number
     """
     rss_data = feedparser.parse(URL)
-    for i in range(0, limit):
-        title = rss_data.entries[i].title
-        link = rss_data.entries[i].link
-
-        print(Back.CYAN + str(i + 1) + "\t")
-        rss_print(title, link)
+    try:
+        for i in range(0, limit):
+            title = rss_data.entries[i].title
+            link = rss_data.entries[i].link
+            print(Back.CYAN + str(i + 1) + "\t")
+            rss_print(title, link)
+    except:
+        print(Fore.RED + """Either the feed is invalid, or 
+            the feed doesn't contain many titles.""")
 
 
 def menu():
