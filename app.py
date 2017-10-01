@@ -17,7 +17,9 @@ def rss_print(title, link, date, description, option):
         soup = BeautifulSoup(description, 'lxml')
         soup = BeautifulSoup(str(soup).replace('<br/>', '\n'), 'lxml')
         description = soup.get_text()
-        print(Back.YELLOW + "Description :" + Style.RESET_ALL + " " + description)
+        print(Back.YELLOW + "Description :" +
+              Style.RESET_ALL + " " + description)
+
 
 def get_rss(limit, option):
     """
@@ -29,8 +31,10 @@ def get_rss(limit, option):
         for i in range(0, limit):
             title = rss_data.entries[i].title
             link = rss_data.entries[i].link
-            date = rss_data.entries[i].published if 'published' in rss_data.entries[i] else ""
-            description = rss_data.entries[i].description if 'description' in rss_data.entries[i] else ""
+            date = (rss_data.entries[i].published
+                    if 'published' in rss_data.entries[i] else "")
+            description = (rss_data.entries[i].description
+                           if 'description' in rss_data.entries[i] else "")
             print(Back.CYAN + str(i + 1) + "\t")
             rss_print(title, link, date, description, option)
     except:
